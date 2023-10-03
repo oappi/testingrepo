@@ -8,7 +8,15 @@ name: Upload Release Asset
 
 jobs:
   build:
-    permissions: write-all
+    permissions:
+      contents: write
+      checks: write
+      actions: read
+      issues: read
+      packages: write
+      pull-requests: read
+      repository-projects: read
+      statuses: read
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
