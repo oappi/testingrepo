@@ -8,6 +8,7 @@ name: Upload Release Asset
 
 jobs:
   build:
+    permissions: write-all
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
