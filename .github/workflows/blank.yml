@@ -21,7 +21,7 @@ jobs:
         run: echo ${{ github.sha }} > awsroleswitcherlinux
       - name: Test
         run: cat awsroleswitcherlinux
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: restore-build
         with:
           path: ./awsroleswitcherlinux
@@ -32,10 +32,10 @@ jobs:
     needs: [cache-build-linux]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: restore-build
         with:
-          path: ./*
+          path: ./awsroleswitcherlinux
           key: ${{ github.sha }}
       - run: echo "testingrun" && cat awsroleswitcherlinux
   
