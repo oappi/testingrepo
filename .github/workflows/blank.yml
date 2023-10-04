@@ -35,6 +35,12 @@ jobs:
         run: echo ${{ github.sha }} mac > awsroleswitchermac
       - name: Test
         run: cat awsroleswitchermac
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.x'
+      - name: test go
+        run: go version
       - uses: actions/cache@v3
         id: restore-build
         with:
