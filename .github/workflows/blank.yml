@@ -18,14 +18,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: echo ${{ github.sha }} > awsroleswitcherlinux
+        run: echo ${{ github.sha }} linux > awsroleswitcherlinux
       - name: Test
         run: cat awsroleswitcherlinux
       - uses: actions/cache@v3
         id: restore-build
         with:
           path: ./awsroleswitcherlinux
-          key: ${{ github.sha }}
+          key: ${{ github.sha }}-linux
+  cache-build-mac:
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: echo ${{ github.sha }} mac > awsroleswitchermac
+      - name: Test
+        run: cat awsroleswitchermac
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./awsroleswitchermac
+          key: ${{ github.sha }}-mac
   cache-use-build:
     name: Retrive linux build from cache
     runs-on: ubuntu-latest
@@ -33,9 +47,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-        id: restore-build
+        id: restore-build-linux
         with:
           path: ./awsroleswitcherlinux
-          key: ${{ github.sha }}
-      - run: echo "testingrun" && cat awsroleswitcherlinux
+          key: ${{ github.sha }}-linux
+      - run: echo "testingrunlinux" && cat awsroleswitcherlinux
+      - uses: actions/cache@v3  
+        id: restore-build-mac
+        with:
+          path: ./awsroleswitchermac
+          key: ${{ github.sha }}-mac
+      - run: echo "testingrunmac" && cat awsroleswitchermac
   
